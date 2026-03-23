@@ -1,25 +1,35 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { defineConfig } from 'astro/config';
+import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
-// https://astro.build/config
 export default defineConfig({
+	site: 'https://useoptio.dev',
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'Optio Docs',
+			description: 'Documentation for the Teachable API wrapper.',
+			social: [
+				{
+					icon: 'github',
+					label: 'GitHub',
+					href: 'https://github.com/Ellf/teachable-api-wrapper',
+				},
+			],
+			plugins: [
+				starlightTypeDoc({
+					entryPoints: ['../teachable-api-wrapper/src/index.ts'],
+					tsconfig: '../teachable-api-wrapper/tsconfig.json',
+				})
+			],
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Getting Started',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Introduction', slug: 'introduction' },
+						{ label: 'Quick Start', slug: 'quickstart' },
 					],
 				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
+				typeDocSidebarGroup,
 			],
 		}),
 	],

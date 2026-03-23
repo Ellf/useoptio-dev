@@ -1,0 +1,42 @@
+name: Deploy Optio Dev Docs
+
+# This is the "on" property that was missing!
+on:
+  push:
+    branches:
+      - main           # Runs every time you push to main
+  workflow_dispatch:   # Adds a "Run workflow" button in GitHub Actions UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout this documentation repo
+      - name: Checkout Docs
+        uses: actions/checkout@v4
+        with:
+          path: docs-repo
+
+      # 2. Checkout your SDK repo (The "Import")
+      - name: Checkout SDK
+        uses: actions/checkout@v4
+        with:
+          repository: Ellf/teachable-api-wrapper
+          path: teachable-api-wrapper
+          # Note: This creates side-by-side folders so your '../' config works!
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: docs-repo/package-lock.json
+
+      # 3. Install and Build (running inside the docs-repo folder)
+      - name: Install dependencies
+        working-directory: docs-repo
+        run: npm install
+
+      - name: Build Optio Dev Docs
+        working-directory: docs-repo
+        run: npm run build

@@ -2,6 +2,11 @@
 dist/
 # generated types
 .astro/
+.idea/
+
+# Ignore the auto-generated API reference files
+# Adjust the path if you changed the default 'output' in config
+src/content/docs/api/
 
 # dependencies
 node_modules/
