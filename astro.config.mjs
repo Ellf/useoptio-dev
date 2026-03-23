@@ -12,7 +12,7 @@ export default defineConfig({
 				{
 					icon: 'github',
 					label: 'GitHub',
-					href: 'https://github.com/Ellf/teachable-api-wrapper',
+					href: 'https://github.com/Ellf/optio-teachable',
 				},
 			],
 			plugins: [
