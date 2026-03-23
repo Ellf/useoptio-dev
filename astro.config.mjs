@@ -19,6 +19,11 @@ export default defineConfig({
 				starlightTypeDoc({
 					entryPoints: ['../optio-teachable/src/index.ts'],
 					tsconfig: '../optio-teachable/tsconfig.json',
+					typeDoc: {
+						expandObjects: true,
+						excludeNotDocumented: true,
+						excludeNotDocumentedKinds: ['Variable', 'TypeAlias']
+					},
 				})
 			],
 			sidebar: [
