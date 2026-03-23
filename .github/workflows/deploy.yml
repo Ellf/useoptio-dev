@@ -39,6 +39,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: docs-repo/package-lock.json
 
+      - name: Install SDK dependencies
+        working-directory: optio-teachable
+        run: npm install
+
       - name: Install dependencies
         working-directory: docs-repo
         run: npm install
