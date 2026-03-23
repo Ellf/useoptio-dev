@@ -21,8 +21,8 @@ jobs:
       - name: Checkout SDK
         uses: actions/checkout@v4
         with:
-          repository: Ellf/teachable-api-wrapper
-          path: teachable-api-wrapper
+          repository: Ellf/optio-teachable
+          path: optio-teachable
           # Note: This creates side-by-side folders so your '../' config works!
 
       - name: Setup Node.js
