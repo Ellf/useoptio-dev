@@ -17,8 +17,8 @@ export default defineConfig({
 			],
 			plugins: [
 				starlightTypeDoc({
-					entryPoints: ['../teachable-api-wrapper/src/index.ts'],
-					tsconfig: '../teachable-api-wrapper/tsconfig.json',
+					entryPoints: ['../optio-teachable/src/index.ts'],
+					tsconfig: '../optio-teachable/tsconfig.json',
 				})
 			],
 			sidebar: [
