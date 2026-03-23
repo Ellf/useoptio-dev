@@ -1,38 +1,44 @@
 name: Deploy Optio Dev Docs
 
-# This is the "on" property that was missing!
 on:
   push:
-    branches:
-      - main           # Runs every time you push to main
-  workflow_dispatch:   # Adds a "Run workflow" button in GitHub Actions UI
+    branches: ["main"]
+  workflow_dispatch:
+
+# Required permissions for GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  # Opts into Node 24 early to silence the deprecation warnings you saw
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout this documentation repo
       - name: Checkout Docs
         uses: actions/checkout@v4
         with:
           path: docs-repo
 
-      # 2. Checkout your SDK repo (The "Import")
-      - name: Checkout SDK
+      - name: Checkout SDK (The "Import")
         uses: actions/checkout@v4
         with:
           repository: Ellf/optio-teachable
           path: optio-teachable
-          # Note: This creates side-by-side folders so your '../' config works!
+          # If this repo is private, ensure you've added the SDK_TOKEN secret
+          token: ${{ secrets.SDK_TOKEN || github.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: docs-repo/package-lock.json
 
-      # 3. Install and Build (running inside the docs-repo folder)
       - name: Install dependencies
         working-directory: docs-repo
         run: npm install
@@ -40,3 +46,20 @@ jobs:
       - name: Build Optio Dev Docs
         working-directory: docs-repo
         run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Astro/Starlight builds to the 'dist' folder by default
+          path: docs-repo/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
