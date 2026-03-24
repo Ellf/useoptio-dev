@@ -1,9 +1,9 @@
 ---
 title: Optio Teachable SDK
-description: The type-safe, developer-friendly wrapper for the Teachable API.
+description: The complete, type-safe Node.js wrapper for the Teachable v1 API.
 template: splash
 hero:
-  tagline: Seamlessly integrate with Teachable using a fully typed, Zod-validated SDK.
+  tagline: Complete, read-only coverage of every Teachable v1 endpoint. Fully typed, Zod-validated, and built from real API responses.
   image:
     file: ../../assets/optiodevlogo.svg
   actions:
@@ -11,7 +11,7 @@ hero:
     link: /introduction/
     icon: right-arrow
   - text: SDK Reference
-    link: /api/
+    link: /api/readme
     icon: external
     variant: minimal
 ---
@@ -22,16 +22,16 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid stagger>
   <Card title="Type Safe" icon="approve-check-circle">
-    Built with TypeScript and Zod. Catch errors at compile-time, not in production.
+    Built with TypeScript and Zod. Every response is validated at runtime — if Teachable returns unexpected data, you'll get a clear, descriptive error pointing to exactly which field failed.
   </Card>
-  <Card title="Essential API Coverage" icon="list-format">
-    Streamlined support for the most critical Teachable v1 endpoints, optimized for performance.
+  <Card title="Complete v1 Coverage" icon="list-format">
+    Every GET endpoint in the Teachable v1 API, across Users, Courses, Transactions, Pricing Plans, and Webhooks. Schemas built from real API responses, not just documentation.
   </Card>
   <Card title="Auto-Generated Docs" icon="rocket">
-    Always stay up to date with documentation pulled directly from the SDK source code.
+    API reference generated directly from the SDK source code and JSDoc comments, so the docs are always in sync with the latest release.
   </Card>
-  <Card title="Lightweight & Fast" icon="setting">
-    A zero-bloat "lite" wrapper designed for clean integrations and high-ticket automation.
+  <Card title="Read-Only by Design" icon="seti:lock">
+    No write operations — ever. Safe to use in scripts, reporting tools, and data pipelines without any risk of modifying your school's data.
   </Card>
 </CardGrid>
 
@@ -40,7 +40,16 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ### Quick Installation
 
 ```bash
-npm install @optio/teachable-sdk
+npm install optio-teachable
+```
+
+```typescript
+import { TeachableClient } from 'optio-teachable';
+
+const teachable = new TeachableClient(process.env.TEACHABLE_API_KEY);
+
+const { courses } = await teachable.v1.courses.getList();
+const { users }   = await teachable.v1.users.getList();
 ```
 
 ---

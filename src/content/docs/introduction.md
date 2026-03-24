@@ -33,7 +33,7 @@ The v1 SDK covers every GET endpoint available in the Teachable v1 API:
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | **Users**         | `getList`, `getById`, `getByEmail`                                                                                          |
 | **Courses**       | `getList`, `getById`, `getEnrolments`, `getProgress`, `getLecture`, `getQuizIds`, `getQuiz`, `getQuizResponses`, `getVideo` |
-| **Transactions**  | `getList`, `getById`                                                                                                        |
+| **Transactions**  | `getList`                                                                                                                   |
 | **Pricing Plans** | `getList`, `getById`                                                                                                        |
 | **Webhooks**      | `getList`, `getEvents`                                                                                                      |
 
