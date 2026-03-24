@@ -34,6 +34,14 @@ export default defineConfig({
 						{ label: 'Quick Start', slug: 'quickstart' },
 					],
 				},
+				{
+					label: 'Guides',
+					items: [
+						{ label: 'Working with Webhooks', slug: 'guides/webhooks' },
+						{ label: 'Why Read-Only?', slug: 'guides/read-only' },
+						{ label: 'Pagination', slug: 'guides/pagination' },
+					],
+				},
 				typeDocSidebarGroup,
 			],
 		}),
